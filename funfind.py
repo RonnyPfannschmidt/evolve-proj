@@ -10,20 +10,41 @@ def gp_add(a, b): return a+b
 def gp_sub(a, b): return a-b
 def gp_mul(a, b): return a*b
 def gp_sqrt(a):   return math.sqrt(abs(a))
- 
+
+functions = {
+    'gp_add': gp_add,
+    'gp_sub': gp_sub,
+    'gp_mul': gp_mul,
+    'gp_sqrt': gp_sqrt,
+
+}
+
+
+def eval_node(node, terminals, functions):
+    if not node.childs:
+        return terminals[node.node_data]
+    else:
+        args = [eval_node(c, terminals, functions)
+                for c in node.childs]
+        func = functions[node.node_data]
+        return func(*args)
+
 def eval_func(chromosome):
    global error_accum
    error_accum.reset()
-   code_comp = chromosome.getCompiledCode()
- 
+   #code_com = chromosome.getCompiledCode()
+   root = chromosome.getRoot()
    for a in xrange(0, 5):
       for b in xrange(0, 5):
-         # The eval will execute a pre-compiled syntax tree
-         # as a Python expression, and will automatically use
-         # the "a" and "b" variables (the terminals defined)
-         evaluated     = eval(code_comp, {'a':a, 'b':b}, globals())
-         target        = math.sqrt((a*a)+(b*b))
-         error_accum += (target, evaluated)
+          a = float(a)
+          b = float(b)
+          # The eval will execute a pre-compiled syntax tree
+          # as a Python expression, and will automatically use
+          # the "a" and "b" variables (the terminals defined)
+          #evaluated     = eval(code_comp, {'a':a, 'b':b}, functions)
+          evaluated     = eval_node(root, {'a':a, 'b':b}, functions)
+          target        = math.sqrt((a*a)+(b*b))
+          error_accum += (target, evaluated)
    return error_accum.getRMSE()
  
 def main_run():
