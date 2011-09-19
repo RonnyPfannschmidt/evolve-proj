@@ -27,17 +27,48 @@ Vorteile
 ~~~~~~~~
 
 * in der Lage höchst optimierte Lösungen zu finden
+* in der Lage unerwartete Lösungen zu finden
 
 
 
 Nachteile
 ~~~~~~~~~~
 
-* Tendenz in lokalen minima/maxima Steckenzubleiben
+* 'blind', Tendenz in lokalen minima/maxima Steckenzubleiben
 * nimmt nur eine Bewertung des Gesammtgenoms eines Individuums vor,
   schlechte/nutzlose Teile des Genoms werden nicht erkannt
 * Große Menge an notwendigen Validierungen/Bewertungn
   (für jedes Individuum jeder Generation muss bewertet werden)
+
+
+
+
+
+Ein einfaches Beispiel
+----------------------
+
+Zu demonstrationszwecken soll mittels eines Genetischen Programms die
+funktion `f(a, b)=sqrt(a*a + b*b)` angenährt werden.
+
+dazu stehen die folgenden funktionsbausteine zur verfuegung
+
+.. literalinclude:: ./funfind.py
+  :language: python
+  :start-after: import sys
+  :end-before: def eval_node
+
+
+
+verglichen werden visitor basierte evaluierung
+
+
+.. literalinclude:: ./funfind.py
+  :language: python
+  :pyobject: eval_node
+
+.. literalinclude:: ./funfind.py
+  :language: python
+  :pyobject: eval_nodes
 
 
 
