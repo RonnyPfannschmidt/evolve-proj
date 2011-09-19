@@ -6,7 +6,7 @@ import sys
 
 # This is the functions used by the GP core,
 # Pyevolve will automatically detect them
-# and the they number of arguments
+# and the number of arguments
 def gp_add(a, b): return a+b
 def gp_sub(a, b): return a-b
 def gp_mul(a, b): return a*b
@@ -17,7 +17,6 @@ functions = {
     'gp_sub': gp_sub,
     'gp_mul': gp_mul,
     'gp_sqrt': gp_sqrt,
-
 }
 
 
