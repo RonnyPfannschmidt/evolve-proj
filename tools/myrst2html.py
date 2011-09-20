@@ -17,7 +17,7 @@ from sphinx.highlighting import PygmentsBridge
 
 import sphinx.directives.code
 import sphinx.directives.other
-from sphinx.writers.html import HTMLWriter
+from sphinx.writers.html import HTMLWriter, HTMLTranslator
 from sphinx.builders.html import SingleFileHTMLBuilder
 
 description = ('Generates (X)HTML documents from standalone reStructuredText '
@@ -32,8 +32,16 @@ settings_overrides = {'env': env}
 
 
 class FakeBuilder:
-    from sphinx.writers.html import HTMLTranslator as translator_class
     highlighter = PygmentsBridge('html', 'fruity')
+
+    class translator_class(HTMLTranslator):
+        def __init__(self, *k, **kw):
+            HTMLTranslator.__init__(self, *k, **kw)
+            highlighter = PygmentsBridge('html', 'borland')
+            self.stylesheet.append(
+                self.embedded_stylesheet % highlighter.get_stylesheet()
+            )
+
 
     def __init__(self):
         self.config = config
