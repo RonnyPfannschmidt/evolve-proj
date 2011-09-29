@@ -35,6 +35,7 @@ class FakeBuilder:
     highlighter = PygmentsBridge('html', 'fruity')
 
     class translator_class(HTMLTranslator):
+        _fieldlist_row_index = 0
         def __init__(self, *k, **kw):
             HTMLTranslator.__init__(self, *k, **kw)
             highlighter = PygmentsBridge('html', 'borland')

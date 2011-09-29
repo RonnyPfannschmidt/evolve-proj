@@ -1,8 +1,15 @@
 Betrachtung Genetischer Programmierung
 ======================================
 
+:Author: Ronny Pfannschmidt
+:Matr Nr: 250154
+
+
+Grundlagen
+----------
+
 Begriffe
---------
+~~~~~~~~
 
 Genetische Algorithmen
   Klasse von Algorithmen,
@@ -13,8 +20,6 @@ Genetische Programmierung
   welche anstelle von Merkmalsvektoren Programme oder Funktionen
   als Elemente einer Population haben
 
-Grundlagen
-----------
 
 Allen Genetischen Algorithmen liegen liegen die Komponenten der Evolution
 zu grunde.
@@ -23,25 +28,16 @@ zu grunde.
 2. Es gibt Replikaton/Fortpflanzung mit Mutation
 3. Es gibt Selektion (in der Natur - Überlebung bis Fortpflanzung/Replikation)
 
-Vorteile
-~~~~~~~~
+Eigenschaften des Algorithmus
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* in der Lage höchst optimierte Lösungen zu finden
-* in der Lage unerwartete Lösungen zu finden
-
-
-
-Nachteile
-~~~~~~~~~~
-
-* 'blind', Tendenz in lokalen minima/maxima Steckenzubleiben
-* nimmt nur eine Bewertung des Gesammtgenoms eines Individuums vor,
-  schlechte/nutzlose Teile des Genoms werden nicht erkannt
-* Große Menge an notwendigen Validierungen/Bewertungn
-  (für jedes Individuum jeder Generation muss bewertet werden)
-
-
-
+* parallele Suche in einer Population von möglichen Lösungen, sodass immer mehrere potentielle Lösungen gefunden werden
+* benötigen kaum Problemwissen, insbesondere keine Gradienteninformation, können also z.B. auch bei diskontinuierlichen Problemen angewendet werden
+* gehören zur Klasse der stochastischen Suchverfahren und ermöglichen damit auch die Behandlung von Problemen,
+  die mit traditionellen Optimierungsmethoden nicht mehr handhabbar sind.
+* Evolutionäre Algorithmen bieten im Allgemeinen keine Garantie,
+  das globale Optimum in vernünftiger Zeit zu finden.
+* Großer Nachteil der EAs ist der oft sehr große Rechenzeitbedarf
 
 
 Ein einfaches Beispiel
@@ -59,8 +55,10 @@ dazu stehen die folgenden funktionsbausteine zur verfuegung
 
 
 
-verglichen werden visitor basierte evaluierung
+verglichen werden:
 
+visitor basierte evaluierung
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: ./funfind.py
   :language: python
@@ -69,6 +67,14 @@ verglichen werden visitor basierte evaluierung
 .. literalinclude:: ./funfind.py
   :language: python
   :pyobject: eval_nodes
+
+code generator basierte evaluierung
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. literalinclude:: ./funfind.py
+  :language: python
+  :pyobject: eval_code
+
 
 
 
