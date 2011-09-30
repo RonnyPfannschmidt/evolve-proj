@@ -39,7 +39,7 @@ def eval_nodes(chromosome):
             evaluated     = eval_node(root, {'a':a, 'b':b}, functions)
             target        = math.sqrt((a*a)+(b*b))
             error_accum.append(target, evaluated)
-            return error_accum.getRMSE()
+    return error_accum.getRMSE()
 
 def eval_code(chromosome):
     error_accum = Util.ErrorAccumulator()
@@ -55,7 +55,7 @@ def eval_code(chromosome):
             evaluated     = eval(code_comp, {'a':a, 'b':b}, functions)
             target        = math.sqrt((a*a)+(b*b))
             error_accum.append(target, evaluated)
-            return error_accum.getRMSE()
+    return error_accum.getRMSE()
 
 
 def main_run(eval_func):
