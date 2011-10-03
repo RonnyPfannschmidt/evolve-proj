@@ -54,26 +54,34 @@ dazu stehen die folgenden funktionsbausteine zur verfuegung
   :end-before: def eval_node
 
 
+um einen einfachen performance-vergleich zu erhalten,
+werden die folgenden implemenationen von bewertungsfunktionen
+auf pypy und cpython vergleichen
 
-verglichen werden:
+**visitor basierte evaluierung**
 
-visitor basierte evaluierung
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  .. literalinclude:: ./funfind.py
+    :language: python
+    :pyobject: eval_node
+
+  .. literalinclude:: ./funfind.py
+    :language: python
+    :pyobject: eval_nodes
+
+**code generator basierte evaluierung**
+
+  .. literalinclude:: ./funfind.py
+    :language: python
+    :pyobject: eval_code
+
+
+Den Hauptteil des Programmes stellt dabei
 
 .. literalinclude:: ./funfind.py
   :language: python
-  :pyobject: eval_node
+  :pyobject: main_run
 
-.. literalinclude:: ./funfind.py
-  :language: python
-  :pyobject: eval_nodes
 
-code generator basierte evaluierung
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. literalinclude:: ./funfind.py
-  :language: python
-  :pyobject: eval_code
 
 
 
