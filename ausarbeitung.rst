@@ -43,7 +43,7 @@ Eigenschaften des Algorithmus
 Ein einfaches Beispiel
 ----------------------
 
-Zu demonstrationszwecken soll mittels eines Genetischen Programms die
+Zu Demonstrationszwecken soll mittels eines Genetischen Programms die
 funktion `f(a, b)=sqrt(a*a + b*b)` angenährt werden.
 
 dazu stehen die folgenden funktionsbausteine zur verfuegung
@@ -54,8 +54,8 @@ dazu stehen die folgenden funktionsbausteine zur verfuegung
   :end-before: def eval_node
 
 
-um einen einfachen performance-vergleich zu erhalten,
-werden die folgenden implemenationen von bewertungsfunktionen
+um einen einfachen Performance-vergleich zu erhalten,
+werden die folgenden implemenationen von Bewertungsfunktionen
 auf pypy und cpython vergleichen
 
 **visitor basierte evaluierung**

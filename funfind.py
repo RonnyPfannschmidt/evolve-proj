@@ -4,19 +4,16 @@ from pyevolve import Util, GTree, GSimpleGA, Consts
 import math
 import sys
 
-# This is the functions used by the GP core,
-# Pyevolve will automatically detect them
-# and the number of arguments
 def gp_add(a, b): return a+b
 def gp_sub(a, b): return a-b
 def gp_mul(a, b): return a*b
 def gp_sqrt(a):   return math.sqrt(abs(a))
 
 functions = {
-    'gp_add': gp_add,
-    'gp_sub': gp_sub,
-    'gp_mul': gp_mul,
-    'gp_sqrt': gp_sqrt,
+    'add': gp_add,
+    'sub': gp_sub,
+    'mul': gp_mul,
+    'sqrt': gp_sqrt,
 }
 
 
@@ -64,15 +61,13 @@ def main_run(eval_func):
     genome.evaluator.set(eval_func)
 
     ga = GSimpleGA.GSimpleGA(genome)
-    # This method will catch and use every function that
-    # begins with "gp", but you can also add them manually.
-    # The terminals are Python variables, you can use the
-    # ephemeral random consts too, using ephemeral:random.randint(0,2)
-    # for example.
-    ga.setParams(gp_terminals       = ['a', 'b'],
-                 gp_function_prefix = "gp")
-    # You can even use a function call as terminal, like "func()"
-    # and Pyevolve will use the result of the call as terminal
+    ga.setParams(gp_terminals=['a', 'b'],
+                 gp_function_set={
+                     'add': 2,
+                     'sub': 2,
+                     'mul': 2,
+                     'sqrt': 1,
+                 })
     ga.setMinimax(Consts.minimaxType["minimize"])
     ga.setGenerations(500)
     ga.setMutationRate(0.08)
@@ -80,7 +75,7 @@ def main_run(eval_func):
     ga.setPopulationSize(1500)
     ga.evolve(freq_stats=20)
 
-    #print ga.bestIndividual()
+    print ga.bestIndividual().getPreOrderExpression()
 
 if __name__ == "__main__":
 
