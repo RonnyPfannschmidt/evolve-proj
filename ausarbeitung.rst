@@ -31,9 +31,14 @@ zu grunde.
 Eigenschaften des Algorithmus
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* parallele Suche in einer Population von möglichen Lösungen, sodass immer mehrere potentielle Lösungen gefunden werden
-* benötigen kaum Problemwissen, insbesondere keine Gradienteninformation, können also z.B. auch bei diskontinuierlichen Problemen angewendet werden
-* gehören zur Klasse der stochastischen Suchverfahren und ermöglichen damit auch die Behandlung von Problemen,
+* parallele Suche in einer Population von möglichen Lösungen,
+  sodass immer mehrere potentielle Lösungen gefunden werden
+* benötigen kaum Problemwissen,
+  insbesondere keine Gradienteninformation,
+  können also z.B. auch bei diskontinuierlichen Problemen
+  angewendet werden
+* gehören zur Klasse der stochastischen Suchverfahren
+  und ermöglichen damit auch die Behandlung von Problemen,
   die mit traditionellen Optimierungsmethoden nicht mehr handhabbar sind.
 * Evolutionäre Algorithmen bieten im Allgemeinen keine Garantie,
   das globale Optimum in vernünftiger Zeit zu finden.
@@ -46,7 +51,7 @@ Ein einfaches Beispiel
 Zu Demonstrationszwecken soll mittels eines Genetischen Programms die
 funktion `f(a, b)=sqrt(a*a + b*b)` angenährt werden.
 
-dazu stehen die folgenden funktionsbausteine zur verfuegung
+dazu stehen die folgenden Funktionsbausteine zur verfuegung
 
 .. literalinclude:: ./funfind.py
   :language: python
@@ -54,9 +59,23 @@ dazu stehen die folgenden funktionsbausteine zur verfuegung
   :end-before: def eval_node
 
 
-um einen einfachen Performance-vergleich zu erhalten,
-werden die folgenden implemenationen von Bewertungsfunktionen
-auf pypy und cpython vergleichen
+Den Hauptteil des Programmes stellt dabei
+
+.. literalinclude:: ./funfind.py
+  :language: python
+  :pyobject: main_run
+
+
+Als Betrachtungsgrundlage werden 2 Arten
+der Evaluierung gegenüber gestellt.
+
+
+**code generator basierte evaluierung**
+
+  .. literalinclude:: ./funfind.py
+    :language: python
+    :pyobject: eval_code
+
 
 **visitor basierte evaluierung**
 
@@ -68,30 +87,40 @@ auf pypy und cpython vergleichen
     :language: python
     :pyobject: eval_nodes
 
-**code generator basierte evaluierung**
-
-  .. literalinclude:: ./funfind.py
-    :language: python
-    :pyobject: eval_code
 
 
-Den Hauptteil des Programmes stellt dabei
+Demonstration der Eigenheiten des Algorithmus
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. literalinclude:: ./funfind.py
-  :language: python
-  :pyobject: main_run
+Um diverse Eigenheiten zu demonstrieren,
+werden gewinnene Individuen aus Verschiedenen generationen entnommen
 
+1. Tote Teile des Genoms
+  
+  .. code-block:: python
 
-
-
-
+    add(
+      mul(
+        sub(
+          sub(add(a, b), mul(b, a)),
+          sub(sqrt(a), sub(b, b))),
+        sqrt(sub(mul(a, b), mul(a, b)))),
+      sqrt(add(
+        add(mul(a, b), mul(b, b)),
+        mul(sub(a, b), a))))
 
 
 * titelliste
 
 * basics erklaeren
 * perf vergleich python pypy
+  
   * optimierungen erlaeutern/vergleichen
+
 * multicpu
+auf pypy und cpython vergleichen
+auf pypy und cpython vergleichen
+:q
+
 * network
 * transformation von merkmalsvektoren (wie zum geier abbilden):
