@@ -17,23 +17,23 @@ functions = {
 }
 
 
-def eval_node(node, terminals, functions):
+def visit_node(node, terminals, functions):
     if not node.childs:
         return terminals[node.node_data]
     else:
-        args = [eval_node(c, terminals, functions)
+        args = [visit_node(c, terminals, functions)
                 for c in node.childs]
         func = functions[node.node_data]
         return func(*args)
 
-def eval_nodes(chromosome):
+def eval_visit(chromosome):
     error_accum = Util.ErrorAccumulator()
     root = chromosome.getRoot()
     for a in xrange(0, 5):
         for b in xrange(0, 5):
             a = float(a)
             b = float(b)
-            evaluated     = eval_node(root, {'a':a, 'b':b}, functions)
+            evaluated     = visit_node(root, {'a':a, 'b':b}, functions)
             target        = math.sqrt((a*a)+(b*b))
             error_accum.append(target, evaluated)
     return error_accum.getRMSE()
@@ -53,6 +53,60 @@ def eval_code(chromosome):
             target        = math.sqrt((a*a)+(b*b))
             error_accum.append(target, evaluated)
     return error_accum.getRMSE()
+
+
+class PushEval(object):
+    def __init__(self, root, functions):
+        self.ops = []
+        self._nodeops(root, functions)
+
+    def _nodeops(self, node, functions):
+        if not node.childs:
+            def pushterminal(stack, terminals, name=node.node_data):
+                stack.append(terminals[name])
+            self.ops.append(pushterminal)
+        else:
+            for child in node.childs:
+                self._nodeops(child, functions)
+
+            func = functions[node.node_data]
+            argc = func.__code__.co_argcount
+            if argc==1:
+                def call1(stack, terminals, func=func):
+                    stack.append(func(stack.pop()))
+                self.ops.append(call1)
+            else:
+                def call2(stack, terminals, func=func):
+                    stack.append(func(stack.pop(), stack.pop()))
+                self.ops.append(call2)
+
+    def __call__(self, terminals):
+        stack = []
+        for op in self.ops:
+            op(stack, terminals)
+        return stack[0]
+
+
+def eval_stack(chromosome):
+    error_accum = Util.ErrorAccumulator()
+    root = chromosome.getRoot()
+    eval = PushEval(root, functions)
+    for a in xrange(0, 5):
+        for b in xrange(0, 5):
+            a = float(a)
+            b = float(b)
+            # The eval will execute a pre-compiled syntax tree
+            # as a Python expression, and will automatically use
+            # the "a" and "b" variables (the terminals defined)
+            evaluated     = eval({'a':a, 'b':b})
+            target        = math.sqrt((a*a)+(b*b))
+            error_accum.append(target, evaluated)
+    return error_accum.getRMSE()
+
+
+
+
+
 
 
 def main_run(eval_func):
@@ -77,11 +131,9 @@ def main_run(eval_func):
 
     print ga.bestIndividual().getPreOrderExpression()
 
-if __name__ == "__main__":
 
-    if 'code' in sys.argv:
-        eval_func = eval_code
-    else:
-        eval_func = eval_nodes
+if __name__ == "__main__":
+    command = sys.argv[1]
+    eval_func = globals()['eval_' + command]
 
     main_run(eval_func)
