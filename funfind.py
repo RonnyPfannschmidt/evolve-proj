@@ -21,10 +21,13 @@ def visit_node(node, terminals, functions):
     if not node.childs:
         return terminals[node.node_data]
     else:
-        args = [visit_node(c, terminals, functions)
-                for c in node.childs]
         func = functions[node.node_data]
-        return func(*args)
+        if len(node.childs) == 1:
+            return func(visit_node(node.childs[0], terminals, functions))
+        else:
+            return func(visit_node(node.childs[0], terminals, functions),
+                        visit_node(node.childs[1], terminals, functions))
+
 
 def eval_visit(chromosome):
     error_accum = Util.ErrorAccumulator()

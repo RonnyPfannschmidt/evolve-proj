@@ -4,11 +4,11 @@ function pypy-bin() {
 
 for py in pypy-bin python
 do
-    for code in "visit" "code"
+    for kind in stack visit code
     do
-        echo -n $py $code
+        echo -n $py $kind
         time {
-            PYTHONPATH=../pyevolve $py funfind.py $code >/dev/null
+            PYTHONPATH=../pyevolve $py funfind.py $kind >/dev/null
         }
     done
 done
