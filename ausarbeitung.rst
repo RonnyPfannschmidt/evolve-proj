@@ -109,6 +109,9 @@ werden gewinnene Individuen aus Verschiedenen generationen entnommen
         add(mul(a, b), mul(b, b)),
         mul(sub(a, b), a))))
 
+  in diesem beispiel ist die sequenz `sub(b, b)` der "fehler"
+  es ist ein typischer Auslöschungsfehler
+
 
 * titelliste
 
