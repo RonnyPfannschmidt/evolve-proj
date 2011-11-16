@@ -66,7 +66,7 @@ Den Hauptteil des Programmes stellt dabei
   :pyobject: main_run
 
 
-Als Betrachtungsgrundlage werden 2 Arten
+Als Betrachtungsgrundlage werden 3 Arten
 der Evaluierung gegenüber gestellt.
 
 
@@ -86,6 +86,8 @@ der Evaluierung gegenüber gestellt.
   .. literalinclude:: ./funfind.py
     :language: python
     :pyobject: eval_nodes
+
+
 
 
 
