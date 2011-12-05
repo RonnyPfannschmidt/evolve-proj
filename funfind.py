@@ -112,13 +112,16 @@ def eval_stack(chromosome):
 
 
 
+def eval_height(chromosome):
+    #print chromosome.getPreOrderExpression(), chromosome.tree_height
+    return abs(chromosome.tree_height-3)
 
 
-
-def main_run(eval_func, generations=500, population=1500):
+def main_run(eval_func, options):
     genome = GTree.GTreeGP()
     genome.setParams(max_depth=5, method="ramped")
-    genome.evaluator.set(eval_func)
+    genome.evaluator.set(eval_func, 5)
+    genome.evaluator.add(eval_height, options.height_weight)
 
     ga = GSimpleGA.GSimpleGA(genome)
     ga.setParams(gp_terminals=['a', 'b'],
@@ -129,19 +132,28 @@ def main_run(eval_func, generations=500, population=1500):
                      'sqrt': 1,
                  })
     ga.setMinimax(Consts.minimaxType["minimize"])
-    ga.setGenerations(generations)
+    ga.setGenerations(options.generations)
     ga.setMutationRate(0.08)
     ga.setCrossoverRate(1.0)
-    ga.setPopulationSize(population)
+    ga.setPopulationSize(options.population)
     ga.evolve(freq_stats=20)
 
     print ga.bestIndividual().getPreOrderExpression()
 
 
-if __name__ == "__main__":
+def main():
     import argparse
-    parser = argparse.ArgumentParser
-    command = sys.argv[1]
-    eval_func = globals()['eval_' + command]
+    parser = argparse.ArgumentParser()
 
-    main_run(eval_func)
+    parser.add_argument('command')
+    parser.add_argument('--generations', type=int, default=500)
+    parser.add_argument('--population', type=int, default=1500)
+    parser.add_argument('--height-weight', type=float, default=0)
+
+    options = parser.parse_args()
+    eval_func = globals()['eval_' + options.command]
+    main_run(eval_func, options)
+
+
+if __name__ == "__main__":
+    main()

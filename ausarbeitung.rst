@@ -65,6 +65,9 @@ Den Hauptteil des Programmes stellt dabei
   :language: python
   :pyobject: main_run
 
+.. literalinclude:: ./funfind.py
+  :language: python
+  :start
 
 Als Betrachtungsgrundlage werden 3 Arten
 der Evaluierung gegenüber gestellt.
@@ -135,12 +138,89 @@ werden gewinnene Individuen aus Verschiedenen generationen entnommen
   es ist ein typischer Auslöschungsfehler
 
 
+2. fehlerdaten bei zuwenig generationen
+
+  folgend ist das beste individuum bei einem lauf mit 50 generationen
+
+  es ist unschwer zu erkennen, dass es weit vom optimum ist
+
+  .. code-block:: python
+
+   sqrt(add(
+     sqrt(mul(sub(b, b), mul(b, a))),
+     add(
+       mul(sub(b, b), sqrt(b)),
+       add(mul(a, a), mul(b, b)))))
+
+
+3. fehlerdaten bei zu geringer population
+  
+  folgend ist das beste individuum wenn die populationsgroesse stark reduziert ist
+
+  .. code:: python
+    add(
+      sqrt(add(
+        mul(sqrt(b), add(b, b)),
+        sub(sqrt(b), a))), 
+      sqrt(sub(a, sqrt(a))))
+
+
+
+Resultat eines Erfolreichen Durchlaufes
+-----------------------------------------
+
+500 generationen
+  .. code:: python
+
+    sqrt(sub(
+      sub(add(mul(a, a), mul(b, b)), a), a))
+
+1000 generationen
+  sqrt(add(add(mul(b, b), mul(a, a)), mul(sub(b, b), mul(sub(a, a), sub(b, a)))))
+2000 generationen 2000 pop
+  sqrt(add(add(mul(b, b), mul(a, a)), mul(add(add(b, a), a), mul(mul(a, a), sub(a, a)))))
+
+
+40 gen, 2000 items, kosten fuer tiefe
+  sqrt(add(mul(b, b), mul(a, a)))
+
+
+
+
+
+
+Beispiel schneller erfolgreicher run:w::
+
+  $ PYTHONPATH=../pyevolve/ pypy-bin funfind.py stack --generations 2000 --population 2000 --height-weight=0.00000001
+  Gen. 0 (0.00%): Max/Min/Avg Fitness(Raw) [1575.10(640067.30)/1312.04(0.72)/1312.58(1312.58)]
+  Gen. 20 (1.00%): Max/Min/Avg Fitness(Raw) [5.18(927.35)/4.32(0.70)/4.32(4.32)]
+  Gen. 40 (2.00%): Max/Min/Avg Fitness(Raw) [6.80(1388.24)/5.66(0.61)/5.67(5.67)]
+  Gen. 60 (3.00%): Max/Min/Avg Fitness(Raw) [6.52(3972.74)/5.43(0.00)/5.43(5.43)]
+  ^C
+    A break was detected, you have interrupted the evolution !
+
+  Gen. 72 (3.60%): Max/Min/Avg Fitness(Raw) [4.99(1178.43)/4.16(0.00)/4.16(4.16)]
+  Total time elapsed: 21.301 seconds.
+  sqrt(add(mul(b, b), mul(a, a)))
+  
+
+
+
+
+spiel
+
+
+
 * titelliste
 
 * basics erklaeren
 * perf vergleich python pypy
   
   * optimierungen erlaeutern/vergleichen
+
+
+* problem des zufalls erlautern
+
 
 * multicpu
   auf pypy und cpython vergleichen
