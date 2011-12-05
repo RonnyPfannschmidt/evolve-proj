@@ -17,6 +17,19 @@ functions = {
 }
 
 
+stack_functions = {
+    'add': lambda stack, terminals:stack.append(stack.pop()+stack.pop()),
+    'sub': lambda stack, terminals:stack.append(stack.pop()-stack.pop()),
+    'mul': lambda stack, terminals:stack.append(stack.pop()*stack.pop()),
+    'sqrt': lambda stack, terminals:stack.append(math.sqrt(abs(stack.pop()))),
+}
+
+stack_terminas = {
+    'a': lambda stack, terminals: stack.append(terminals['a']),
+    'b': lambda stack, terminals: stack.append(terminals['b']),
+}
+
+
 def visit_node(node, terminals, functions):
     if not node.childs:
         return terminals[node.node_data]
@@ -58,42 +71,32 @@ def eval_code(chromosome):
     return error_accum.getRMSE()
 
 
-class PushEval(object):
-    def __init__(self, root, functions):
-        self.ops = []
-        self._nodeops(root, functions)
+def nodeops(node, functions):
+    res = []
+    _nodeops(res, node, functions)
+    return res
 
-    def _nodeops(self, node, functions):
-        if not node.childs:
-            def pushterminal(stack, terminals, name=node.node_data):
-                stack.append(terminals[name])
-            self.ops.append(pushterminal)
-        else:
-            for child in node.childs:
-                self._nodeops(child, functions)
 
-            func = functions[node.node_data]
-            argc = func.__code__.co_argcount
-            if argc==1:
-                def call1(stack, terminals, func=func):
-                    stack.append(func(stack.pop()))
-                self.ops.append(call1)
-            else:
-                def call2(stack, terminals, func=func):
-                    stack.append(func(stack.pop(), stack.pop()))
-                self.ops.append(call2)
+def _nodeops(ops, node, functions):
+    if not node.childs:
+        ops.append(stack_terminas[node.node_data])
+    else:
+        for child in node.childs:
+            _nodeops(ops, child, functions)
+        ops.append(stack_functions[node.node_data])
 
-    def __call__(self, terminals):
-        stack = []
-        for op in self.ops:
-            op(stack, terminals)
-        return stack[0]
+
+def eval_ops(ops, terminals):
+    stack = []
+    for op in ops:
+        op(stack, terminals)
+    return stack[0]
 
 
 def eval_stack(chromosome):
     error_accum = Util.ErrorAccumulator()
     root = chromosome.getRoot()
-    eval = PushEval(root, functions)
+    ops = nodeops(root, functions)
     for a in xrange(0, 5):
         for b in xrange(0, 5):
             a = float(a)
@@ -101,7 +104,7 @@ def eval_stack(chromosome):
             # The eval will execute a pre-compiled syntax tree
             # as a Python expression, and will automatically use
             # the "a" and "b" variables (the terminals defined)
-            evaluated     = eval({'a':a, 'b':b})
+            evaluated     = eval_ops(ops, {'a':a, 'b':b})
             target        = math.sqrt((a*a)+(b*b))
             error_accum.append(target, evaluated)
     return error_accum.getRMSE()
@@ -112,7 +115,7 @@ def eval_stack(chromosome):
 
 
 
-def main_run(eval_func):
+def main_run(eval_func, generations=500, population=1500):
     genome = GTree.GTreeGP()
     genome.setParams(max_depth=5, method="ramped")
     genome.evaluator.set(eval_func)
@@ -126,16 +129,18 @@ def main_run(eval_func):
                      'sqrt': 1,
                  })
     ga.setMinimax(Consts.minimaxType["minimize"])
-    ga.setGenerations(500)
+    ga.setGenerations(generations)
     ga.setMutationRate(0.08)
     ga.setCrossoverRate(1.0)
-    ga.setPopulationSize(1500)
+    ga.setPopulationSize(population)
     ga.evolve(freq_stats=20)
 
     print ga.bestIndividual().getPreOrderExpression()
 
 
 if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser
     command = sys.argv[1]
     eval_func = globals()['eval_' + command]
 
