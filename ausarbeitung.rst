@@ -56,7 +56,7 @@ dazu stehen die folgenden Funktionsbausteine zur verfuegung
 .. literalinclude:: ./funfind.py
   :language: python
   :start-after: import sys
-  :end-before: def eval_node
+  :end-before: def visit_node
 
 
 Den Hauptteil des Programmes stellt dabei
@@ -81,14 +81,34 @@ der Evaluierung gegenüber gestellt.
 
   .. literalinclude:: ./funfind.py
     :language: python
-    :pyobject: eval_node
+    :pyobject: visit_node
 
   .. literalinclude:: ./funfind.py
     :language: python
-    :pyobject: eval_nodes
+    :pyobject: eval_visit
+
+
+**operator list basierte evaluation**
+
+
+  .. literalinclude:: ./funfind.py
+    :language: python
+    :pyobject: nodeops
+
+  .. literalinclude:: ./funfind.py
+    :language: python
+    :pyobject: _nodeops
+
+  .. literalinclude:: ./funfind.py
+    :language: python
+    :pyobject: eval_stack
 
 
 
+Resultate des Geschwindigkeitsvergleiches
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. literalinclude:: speed.rst
 
 
 Demonstration der Eigenheiten des Algorithmus
@@ -123,9 +143,7 @@ werden gewinnene Individuen aus Verschiedenen generationen entnommen
   * optimierungen erlaeutern/vergleichen
 
 * multicpu
-auf pypy und cpython vergleichen
-auf pypy und cpython vergleichen
-:q
+  auf pypy und cpython vergleichen
 
 * network
 * transformation von merkmalsvektoren (wie zum geier abbilden):
