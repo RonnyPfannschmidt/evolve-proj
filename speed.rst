@@ -1,16 +1,25 @@
+pypy-bin stack
+  real 1m48.747s
+  user 1m47.867s
+  sys 0m0.284s
 pypy-bin visit
-  real 3m37.908s
-  user 3m34.193s
-  sys 0m0.896s
+  real 2m44.631s
+  user 2m43.050s
+  sys 0m0.684s
 pypy-bin code
-  real 11m39.179s
-  user 11m35.135s
-  sys 0m1.260s
+  real 5m24.300s
+  user 5m21.348s
+  sys 0m1.460s
+python stack
+  real 8m28.568s
+  user 8m25.172s
+  sys 0m1.340s
 python visit
-  real 12m51.500s
-  user 12m43.440s
-  sys 0m3.088s
+  real 12m28.534s
+  user 12m22.086s
+  sys 0m1.620s
 python code
-  real 13m53.347s
-  user 13m45.632s
-  sys 0m2.672s
+  real 11m37.197s
+  user 11m33.135s
+  sys 0m1.212s
+
