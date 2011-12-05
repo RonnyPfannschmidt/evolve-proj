@@ -67,7 +67,7 @@ Den Hauptteil des Programmes stellt dabei
 
 .. literalinclude:: ./funfind.py
   :language: python
-  :start
+  :pyobject: main
 
 Als Betrachtungsgrundlage werden 3 Arten
 der Evaluierung gegenüber gestellt.
@@ -157,7 +157,8 @@ werden gewinnene Individuen aus Verschiedenen generationen entnommen
   
   folgend ist das beste individuum wenn die populationsgroesse stark reduziert ist
 
-  .. code:: python
+  .. code-block:: python
+
     add(
       sqrt(add(
         mul(sqrt(b), add(b, b)),
@@ -170,7 +171,7 @@ Resultat eines Erfolreichen Durchlaufes
 -----------------------------------------
 
 500 generationen
-  .. code:: python
+  .. code-block:: python
 
     sqrt(sub(
       sub(add(mul(a, a), mul(b, b)), a), a))
@@ -191,7 +192,10 @@ Resultat eines Erfolreichen Durchlaufes
 
 Beispiel schneller erfolgreicher run:w::
 
-  $ PYTHONPATH=../pyevolve/ pypy-bin funfind.py stack --generations 2000 --population 2000 --height-weight=0.00000001
+  $ PYTHONPATH=../pyevolve/ pypy-bin funfind.py stack \
+  >           --generations 2000 \
+  >           --population 2000 \
+  >           --height-weight=0.00000001
   Gen. 0 (0.00%): Max/Min/Avg Fitness(Raw) [1575.10(640067.30)/1312.04(0.72)/1312.58(1312.58)]
   Gen. 20 (1.00%): Max/Min/Avg Fitness(Raw) [5.18(927.35)/4.32(0.70)/4.32(4.32)]
   Gen. 40 (2.00%): Max/Min/Avg Fitness(Raw) [6.80(1388.24)/5.66(0.61)/5.67(5.67)]
@@ -204,10 +208,6 @@ Beispiel schneller erfolgreicher run:w::
   sqrt(add(mul(b, b), mul(a, a)))
   
 
-
-
-
-spiel
 
 
 
