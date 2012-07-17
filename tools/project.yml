@@ -1,0 +1,25 @@
+project:
+    _id: evolve-results
+    steps:
+    - stepper: subprocess
+      args:
+      - /home/ronny/Projects/pypy/pypy-bin/bin/pypy
+      - /home/ronny/Projects/evolvestuff/fun/funfind.py
+      - "--generations"
+      - __var__: generations
+      - "--population"
+      - __var__: population
+      - "--height-weight"
+      - __var__: "height-weight"
+      - stack
+      env:
+        PYTHONPATH: /home/ronny/Projects/evolvestuff/pyevolve/
+order:
+- _id: simple
+  generations: [50, 100, 500, 1000, 1500, 2000]
+  population: [50, 100, 500, 1000, 1500, 2000]
+  "height-weight": [0, 0.001, 0.01, 0.1, 1, 2]
+- _id: complex
+  generations: [50, 100, 500, 1000, 1500, 2000, 3000, 4000, 5000]
+  population: [50, 100, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000]
+  "height-weight": [0, 0.00001, 0.0001, 0.001, 0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 1, 2]
