@@ -4,6 +4,18 @@ from pyevolve import Util, GTree, GSimpleGA, Consts
 import math
 import sys
 
+class FlushFile(object):
+    """Write-only flushing wrapper for file-type objects."""
+    def __init__(self, f):
+        self.f = f
+    def write(self, x):
+        self.f.write(x)
+        self.f.flush()
+
+# Replace stdout with an automatically flushing version
+sys.stdout = FlushFile(sys.__stdout__)
+
+
 def gp_add(a, b): return a+b
 def gp_sub(a, b): return a-b
 def gp_mul(a, b): return a*b
