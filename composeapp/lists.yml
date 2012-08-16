@@ -1,0 +1,35 @@
+tabular.coffee: |
+  (head, req) ->
+    {_} = require 'underscore'
+    {TableWriter} = require 'lib/tabular'
+    start headers: {'Content-Type': 'text/html'}
+
+    send '<h1>tabular</h1>'
+    send '<style> .correct {background-color: green;} .incorrect {background-color: red;}</style>'
+    info = _.clone req.query
+    delete info.group
+    baseinfo = getRow().value
+    hw_array = baseinfo.axis["height-weight"]
+    hw = hw_array[0]
+    tw = new TableWriter send, hw_array, (row) -> row.value.spec['height-weight']
+
+    tw.make_header (send, val) ->
+      send '<h2>heights weight' + val + '</h2>'
+      send '<table>\n'
+      send '  <tr>\n    <th>*\n'
+      for p in baseinfo.axis.population
+        send '    <th>' + p + '\n'
+    last = {}
+    tw.make_rows getRow, (send, row) ->
+      val = row.value
+      if val.spec['height-weight'] != hw
+        return
+      if last.generations != val.spec.generations
+        send '  <tr><th>' + val.spec.generations + '\n'
+      if val.correct
+        send '    <td class=correct>'
+      else
+        send '    <td class=incorrect>'
+      send '&nbsp\n'
+      last = val.spec || {}
+    return

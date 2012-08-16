@@ -1,0 +1,14 @@
+doc:
+  _id: _design/evolve-analyze
+
+
+
+load:
+- views/taskinfo.yml
+- lists.yml
+- lib/tabular.coffee
+
+externals:
+- name: underscore
+  url: http://underscorejs.org/underscore.js
+

@@ -1,1 +1,2 @@
 .*\.html
+.couchdb-compose-external-cache

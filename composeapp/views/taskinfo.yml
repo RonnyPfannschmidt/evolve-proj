@@ -1,0 +1,53 @@
+map.coffee: |
+  (doc) ->
+    if doc.type == 'juggler:order'
+      emit [doc._id], doc
+    if doc.type == 'juggler:task'
+      emit doc._id.split('.'), doc.spec
+    if doc.line
+      line = doc.line
+
+      if line.indexOf("Total") != -1
+        seconds = new Number(line.match(/\d+\.\d+/)[0])
+        emit doc.task.split('.'), time: seconds
+      else if line.indexOf("Gen.") != -1
+        re = /Gen\. (\d+) \((\d+.\d+)%\)/
+        info = line.match(re)
+        gen = new Number(info[1])
+        percent = new Number(info[2])
+
+        parts = line.match(/(\d+.\d+)\((\d+.\d+)\)/g)
+        parse_info = (item) ->
+            match = item.match(/(\d+.\d+)\((\d+.\d+)\)/)
+            return norm: new Number(match[1]), raw: new Number(match[2])
+        infos =
+          max: parse_info(parts[0])
+          min: parse_info(parts[1])
+          avg: parse_info(parts[2])
+
+        emit doc.task.split('.'), {gen: gen, percent: percent, infos: infos}
+      else
+        correct = /sqrt\(add\(mul\((\w), \1\), mul\(((?!\1)\w), \2\)\)\)/
+        emit doc.task.split('.'), result: line, correct: correct.test(line)
+    return
+
+reduce.coffee: |
+  (keys, values, rereduce) ->
+
+    data = {}
+    for value in values
+        if 'population' of value
+          data.spec = value
+        if 'spec' of value
+          data.spec = value.spec
+        if 'axis' of value
+          data.axis = value.axis
+        if 'result' of value
+          data.result = value.result
+          data.correct = value.correct
+        if 'gen' of value and 'gen' not of data and value.infos?.min?.raw? == 0
+          # null check
+          data.gen = value.gen
+
+    return data
+
