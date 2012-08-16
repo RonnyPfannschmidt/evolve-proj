@@ -14,7 +14,7 @@ tabular.coffee: |
     tw = new TableWriter send, hw_array, (row) -> row.value.spec['height-weight']
 
     tw.make_header (send, val) ->
-      send '<h2>heights weight' + val + '</h2>'
+      send '<h2>heights weight ' + val + '</h2>'
       send '<table>\n'
       send '  <tr>\n    <th>*\n'
       for p in baseinfo.axis.population
