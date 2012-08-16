@@ -20,10 +20,8 @@ tabular.coffee: |
       for p in baseinfo.axis.population
         send '    <th>' + p + '\n'
     last = {}
-    tw.make_rows getRow, (send, row) ->
+    tw.make_rows getRow, (send, row, last) ->
       val = row.value
-      if val.spec['height-weight'] != hw
-        return
       if last.generations != val.spec.generations
         send '  <tr><th>' + val.spec.generations + '\n'
       if val.correct
@@ -31,5 +29,7 @@ tabular.coffee: |
       else
         send '    <td class=incorrect>'
       send '&nbsp\n'
-      last = val.spec || {}
+      return val.spec
+
+    tw.finalize()
     return

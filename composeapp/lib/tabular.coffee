@@ -5,15 +5,27 @@ class TableWriter
       @buffers[i] = new Array()
 
   make_header: (maker) ->
-    @header_maker = maker
-    maker @send_one, @items[0]
+    for item in @items
+      maker @sendfunc(item), item
+
+  sendfunc: (val) ->
+    if val == @items[0]
+      @send_one
+    else
+      index = @items.indexOf(val)
+      (data) =>
+        @buffers[index].push(data)
+        return
 
   make_rows: (getRow, maker) ->
+    last = {}
     while row = getRow()
-      maker @send_one, row
+      val = @discriminate(row)
+      last = maker @sendfunc(val), row, last
 
   finalize: () ->
     for buffer in @buffers
       buffer.forEach @send_one
+    return
 
 exports.TableWriter = TableWriter
