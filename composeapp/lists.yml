@@ -30,6 +30,7 @@ tabular.coffee: |
         send '    <td class=incorrect>'
       send '&nbsp\n'
       return val.spec
-
+    
+    tw.make_footer (send) -> send '</table>'
     tw.finalize()
     return

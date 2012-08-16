@@ -1,12 +1,16 @@
 class TableWriter
   constructor: (@send_one, @items, @discriminate) ->
     @buffers = new Array(@items.length)
-    for i in [1..@items.length]
+    for i in [0..@items.length]
       @buffers[i] = new Array()
 
   make_header: (maker) ->
     for item in @items
       maker @sendfunc(item), item
+
+  make_footer: (maker) ->
+    for item in @items
+      maker @sendfunc(item)
 
   sendfunc: (val) ->
     if val == @items[0]
@@ -18,10 +22,12 @@ class TableWriter
         return
 
   make_rows: (getRow, maker) ->
-    last = {}
+    lasts = for _ in @items
+      {}
     while row = getRow()
       val = @discriminate(row)
-      last = maker @sendfunc(val), row, last
+      index = @items.indexOf(val)
+      lasts[index] = maker @sendfunc(val), row, lasts[index]
 
   finalize: () ->
     for buffer in @buffers
