@@ -5,7 +5,26 @@ tabular.coffee: |
     start headers: {'Content-Type': 'text/html'}
 
     send '<h1>tabular</h1>'
-    send '<style> .correct {background-color: green;} .incorrect {background-color: red;}</style>'
+    send """
+        <style>
+          .correct {background-color: green;}
+          .incorrect {background-color: red;}
+        </style>
+        """
+
+    send """
+        <h2>legend</h2>
+        <dl>    
+          <dt>left to right
+          <dd>generations
+          <dt>top to botom
+          <dd>population
+          <dt>red
+          <dd>incorrect result
+          <dt>green
+          <dd> correct result
+        </dl>
+        """
     info = _.clone req.query
     delete info.group
     baseinfo = getRow().value
@@ -14,16 +33,19 @@ tabular.coffee: |
     tw = new TableWriter send, hw_array, (row) -> row.value.spec['height-weight']
 
     tw.make_header (send, val) ->
-      send '<h2>heights weight ' + val + '</h2>'
-      send '<table>\n'
-      send '  <tr>\n    <th>*\n'
+      send """
+        <h2>heights weight #{ val }</h2>
+        <table>
+          <tr>
+            <th>*\n
+        """
       for p in baseinfo.axis.population
-        send '    <th>' + p + '\n'
+        send "  <th>#{ p }\n"
     last = {}
     tw.make_rows getRow, (send, row, last) ->
       val = row.value
       if last.generations != val.spec.generations
-        send '  <tr><th>' + val.spec.generations + '\n'
+        send "  <tr><th>#{ val.spec.generations }\n"
       if val.correct
         send '    <td class=correct>'
       else
@@ -34,3 +56,13 @@ tabular.coffee: |
     tw.make_footer (send) -> send '</table>'
     tw.finalize()
     return
+
+key_items.coffee: |
+  (head, req) ->
+    start headers: {'Content-Type': 'text/html'}
+    send '<h1>Runs:</h1>'
+    while row = getRow()
+       send "<h2><a href=#{ row.key[0] }>#{ row.key[0] }</a></h2>\n"
+       send "<table>\n"
+       for key, value of row.value.axis
+         send "<tr><th>#{ key }</th><td>#{ toJSON value }</td></tr>\n"

@@ -1,0 +1,11 @@
+- from: /:name
+  to: _list/tabular/taskinfo
+  query:
+    group: "true"
+    startkey: [ ":name" ]
+    endkey: [ ":name", {}]
+
+- from: /
+  to: _list/key_items/taskinfo
+  query:
+    group_level: "1"

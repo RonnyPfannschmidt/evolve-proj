@@ -6,6 +6,7 @@ doc:
 load:
 - views/taskinfo.yml
 - lists.yml
+- rewrites.yml
 - lib/tabular.coffee
 
 externals:
