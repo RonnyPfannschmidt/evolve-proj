@@ -125,7 +125,6 @@ def eval_stack(chromosome):
 
 
 def eval_height(chromosome):
-    #print chromosome.getPreOrderExpression(), chromosome.tree_height
     return abs(chromosome.tree_height-3)
 
 
