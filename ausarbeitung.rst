@@ -17,41 +17,40 @@ Genetische Algorithmen
   um Problemlöser zu Finden
 Genetische Programmierung
   Klasse von Genetischen Algorithmen,
-  welche anstelle von Merkmalsvektoren Programme oder Funktionen
+  welche anstelle von Merkmals Vektoren Programme oder Funktionen
   als Elemente einer Population haben
 
 
 Allen Genetischen Algorithmen liegen liegen die Komponenten der Evolution
-zu grunde.
+zu Grunde.
 
 1. Es gibt eine Population
-2. Es gibt Replikaton/Fortpflanzung mit Mutation
-3. Es gibt Selektion (in der Natur - Überlebung bis Fortpflanzung/Replikation)
+2. Es gibt Replikation/Fortpflanzung mit Mutation
+3. Es gibt Selektion (in der Natur - Überlebend bis Fortpflanzung/Replikation)
 
 Eigenschaften des Algorithmus
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * parallele Suche in einer Population von möglichen Lösungen,
   sodass immer mehrere potentielle Lösungen gefunden werden
-* benötigen kaum Problemwissen,
-  insbesondere keine Gradienteninformation,
-  können also z.B. auch bei diskontinuierlichen Problemen
-  angewendet werden
-* gehören zur Klasse der stochastischen Suchverfahren
+* benötigen kaum Problem wissen,
+  insbesondere keine Gradienten Information, können also auch bei
+  diskontinuierlichen Problemen angewendet werden
+* gehören zur Klasse der stochastischen Such verfahren
   und ermöglichen damit auch die Behandlung von Problemen,
-  die mit traditionellen Optimierungsmethoden nicht mehr handhabbar sind.
+  die mit traditionellen Optimierung Methoden nicht mehr handhabbar sind.
 * Evolutionäre Algorithmen bieten im Allgemeinen keine Garantie,
   das globale Optimum in vernünftiger Zeit zu finden.
-* Großer Nachteil der EAs ist der oft sehr große Rechenzeitbedarf
+* Großer Nachteil der EAs ist der oft sehr große Rechenzeit bedarf
 
 
 Ein einfaches Beispiel
 ----------------------
 
-Zu Demonstrationszwecken soll mittels eines Genetischen Programms die
-funktion `f(a, b)=sqrt(a*a + b*b)` angenährt werden.
+Zu Demonstration zwecken soll mittels eines Genetischen Programms die
+Funktion `f(a, b)=sqrt(a*a + b*b)` angenährt werden.
 
-dazu stehen die folgenden Funktionsbausteine zur verfuegung
+Dazu stehen die folgenden Funktionsbausteine zur Verfügung
 
 .. literalinclude:: ./funfind.py
   :language: python
@@ -69,18 +68,18 @@ Den Hauptteil des Programmes stellt dabei
   :language: python
   :pyobject: main
 
-Als Betrachtungsgrundlage werden 3 Arten
+Als Betrachtungs-grundlage werden 3 Arten
 der Evaluierung gegenüber gestellt.
 
 
-**code generator basierte evaluierung**
+**code generator basierte Evaluation**
 
   .. literalinclude:: ./funfind.py
     :language: python
     :pyobject: eval_code
 
 
-**visitor basierte evaluierung**
+**visitor basierte Evaluation**
 
   .. literalinclude:: ./funfind.py
     :language: python
@@ -91,7 +90,7 @@ der Evaluierung gegenüber gestellt.
     :pyobject: eval_visit
 
 
-**operator list basierte evaluation**
+**operator list basierte Evaluation**
 
 
   .. literalinclude:: ./funfind.py
@@ -108,8 +107,14 @@ der Evaluierung gegenüber gestellt.
 
 
 
-Resultate des Geschwindigkeitsvergleiches
+Resultate des Geschwindigkeit Vergleiches
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Um einen Eindruck über die Geschwindigkeit der Verschiedenen Evaluierung Methoden
+zu gewinnen, wurden sie vor das gleiche Problem gestellt.
+Zusätzlich wurde neben dem normalen Python Interpreter
+auch PyPy in den Vergleich mit einbezogen, um einen Eindruck zu gewinnen,
+welchen Einfluss ein Python Interpreter mit JIT hat.
 
 .. literalinclude:: speed.rst
 
@@ -118,7 +123,7 @@ Demonstration der Eigenheiten des Algorithmus
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Um diverse Eigenheiten zu demonstrieren,
-werden gewinnene Individuen aus Verschiedenen generationen entnommen
+wurden gewinnende Individuen aus Verschiedenen Generationen entnommen
 
 1. Tote Teile des Genoms
   
@@ -134,28 +139,28 @@ werden gewinnene Individuen aus Verschiedenen generationen entnommen
         add(mul(a, b), mul(b, b)),
         mul(sub(a, b), a))))
 
-  in diesem beispiel ist die sequenz `sub(b, b)` der "fehler"
-  es ist ein typischer Auslöschungsfehler
+  In diesem Beispiel ist die Sequenz `sub(b, b)` der "Fehler"
+  es ist ein typischer Auslöschung Fehler, der das eigentliche Ergebnis nicht ändert
 
 
-2. fehlerdaten bei zuwenig generationen
+2. Fehler Daten bei zuwenig Generationen
 
-  folgend ist das beste individuum bei einem lauf mit 50 generationen
+  Folgend ist das beste Individuum bei einem lauf mit 50 Fenerationen
 
-  es ist unschwer zu erkennen, dass es weit vom optimum ist
+  es ist unschwer zu erkennen, dass es weit vom Optimum entfernt ist
 
   .. code-block:: python
 
-   sqrt(add(
-     sqrt(mul(sub(b, b), mul(b, a))),
-     add(
-       mul(sub(b, b), sqrt(b)),
-       add(mul(a, a), mul(b, b)))))
+    sqrt(add(
+      sqrt(mul(sub(b, b), mul(b, a))),
+      add(
+        mul(sub(b, b), sqrt(b)),
+        add(mul(a, a), mul(b, b)))))
 
 
-3. fehlerdaten bei zu geringer population
-  
-  folgend ist das beste individuum wenn die populationsgroesse stark reduziert ist
+3. Fehler Daten bei zu geringer Population
+
+  Folgend ist das beste Individuum wenn die Populationsgrösse stark reduziert ist
 
   .. code-block:: python
 
@@ -167,30 +172,26 @@ werden gewinnene Individuen aus Verschiedenen generationen entnommen
 
 
 
-Resultat eines Erfolreichen Durchlaufes
+Resultat eines Erfolgreichen Durchlaufes
 -----------------------------------------
 
-500 generationen
+500 Generationen
   .. code-block:: python
 
     sqrt(sub(
       sub(add(mul(a, a), mul(b, b)), a), a))
 
-1000 generationen
+1000 Generationen
   sqrt(add(add(mul(b, b), mul(a, a)), mul(sub(b, b), mul(sub(a, a), sub(b, a)))))
-2000 generationen 2000 pop
+2000 Generationen 2000 Population
   sqrt(add(add(mul(b, b), mul(a, a)), mul(add(add(b, a), a), mul(mul(a, a), sub(a, a)))))
 
-
-40 gen, 2000 items, kosten fuer tiefe
+40 gen, 2000 Items, Kosten für Tiefe
   sqrt(add(mul(b, b), mul(a, a)))
 
 
 
-
-
-
-Beispiel schneller erfolgreicher run:w::
+Beispiel schneller erfolgreicher Durchlaufe::
 
   $ PYTHONPATH=../pyevolve/ pypy-bin funfind.py stack \
   >           --generations 2000 \
@@ -209,21 +210,86 @@ Beispiel schneller erfolgreicher run:w::
   
 
 
+Der grosse kombinatorische Test
+=================================
+
+Um das Verhalten des Algorithmus besser zu verstehen,
+wurde er für eine grosse Menge an Konfigurationen jeweils komplett durchgeführt.
 
 
-* titelliste
+Dabei wurden folgende fixen Achsen verwendet:
 
-* basics erklaeren
-* perf vergleich python pypy
-  
-  * optimierungen erlaeutern/vergleichen
+:crossover rate: 1.0
+:mutation rate: 0.08
+:height shift: -3
+
+Die `height shift` ist dabei der Wert um den die Baum höhe
+verändert wird, bevor sie in die Gewichtung eingeht.
+
+.. literalinclude:: ./funfind.py
+  :language: python
+  :pyobject: eval_height
+
+Der Wert von -3 wurde gewählt, weil die optimale Baum höhe im
+Beispiel ist und versucht wird, das Bewertung Ergebnis zu minimieren.
+
+Die Dynamischen Achsen sind:
+
+:height-weight: [-2,-1,-0.1,-0.01,-0.001,0,0.001,0.01,0.1,1,2]
+:generations: [20,50,100,300,500,1000,1500,2000,3000,5000]
+:population: [20,50,100,300,500,1000,1500,2000,3000,5000]
+
+`height-weight` gibt dabei ein, wie stark die bereits erwähnte Baum höhe
+in die Bewertung mit eingeht.
 
 
-* problem des zufalls erlautern
+Um einen groben Überblick zu erlangen,
+wurden für alle Kombinationen von height-weight,
+Plots über Generationen X Population erstellt,
+und korrekte/inkorrekte Resultate markiert.
+
+Dabei wurde nur ein optimales Ergebnis als korrekt angesehen
+(i.e. `sqrt(add(mul(a, a), mul(b, b)))`
+oder `sqrt(add(mul(b, b) mul(a, a)))`).
+
+Alle Plots sind in der zugefügten `datei <./fill_run.html>`_ einsehbar.
+
+Da alle Ergebnisse grosse Ähnlichkeit aufweisen
+(weight_height scheint keinen visuell feststellbaren Einfluss zu haben),
+wurde das Beispiel mit der Gewichtung 0 gewählt.
+
+.. raw:: html
+  :file: fill_run_fragment.html
 
 
-* multicpu
-  auf pypy und cpython vergleichen
 
-* network
-* transformation von merkmalsvektoren (wie zum geier abbilden):
+
+Fazit
+======
+
+Anhand des Datensatzes ist recht einleuchtend der Effekt von Zufallstreffern,
+sowie zunehmender Menge von Generationen und Population zu erkennen.
+
+Die gewonnenen Daten legen nahe,
+dass die Qualität des Ergebnisses in direkter Relation mit
+der Menge an Generationen und Population steht.
+
+Die Gewichtung der Baum höhe hatte keinen Effekt.
+
+
+
+Selbstkritik
+============
+
+Bisher konnten weitere interessante Grössen zur Parametrisierung noch
+nicht analysiert werden.
+Besonders interessant sind dabei cross-over rate und Mutationsrate.
+
+Entgegen der auf den Beispielen für Eigenarten basierenden Erwartung,
+dass die Höhe des Baumes einen Einfluss hat,
+stellte sich heraus, dass sie keinen hat.
+
+Weiterhin ist nicht klar,
+welchen Einfluss die Komplexität der Funktion auf das Ergebnis hat.
+
+Der hohe Aufwand an Rechenzeit legt weitere Projekte nahe.

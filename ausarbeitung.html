@@ -3,14 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
-<title>Betrachtung Genetischer Programmierung</title>
-<meta name="author" content="Ronny Pfannschmidt" />
+<meta name="generator" content="Docutils 0.9.1: http://docutils.sourceforge.net/" />
+<title></title>
 <style type="text/css">
 
 /*
 :Author: David Goodger (goodger@python.org)
-:Id: $Id: html4css1.css 7056 2011-06-17 10:50:48Z milde $
+:Id: $Id: html4css1.css 7434 2012-05-11 21:06:27Z milde $
 :Copyright: This stylesheet has been placed in the public domain.
 
 Default cascading style sheet for the HTML output of Docutils.
@@ -250,9 +249,17 @@ pre.address {
   margin-top: 0 ;
   font: inherit }
 
-pre.literal-block, pre.doctest-block, pre.math {
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
   margin-left: 2em ;
   margin-right: 2em }
+
+pre.code .ln { /* line numbers */
+  color: grey;
+}
+
+.code {
+  background-color: #eeeeee
+}
 
 span.classifier {
   font-family: sans-serif ;
@@ -365,22 +372,23 @@ ul.auto-toc {
 </style>
 </head>
 <body>
-<div class="document" id="betrachtung-genetischer-programmierung">
-<h1 class="title">Betrachtung Genetischer Programmierung</h1>
-<table class="docinfo" frame="void" rules="none">
-<col class="docinfo-name" />
-<col class="docinfo-content" />
+<div class="document">
+<div class="section" id="betrachtung-genetischer-programmierung">
+<h1>Betrachtung Genetischer Programmierung</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
 <tbody valign="top">
-<tr><th class="docinfo-name">Author:</th>
-<td>Ronny Pfannschmidt</td></tr>
-<tr class="field-odd field"><th class="docinfo-name">Matr Nr:</th><td class="field-body">250154</td>
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Ronny Pfannschmidt</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Matr Nr:</th><td class="field-body">250154</td>
 </tr>
 </tbody>
 </table>
 <div class="section" id="grundlagen">
-<h1>Grundlagen</h1>
+<h2>Grundlagen</h2>
 <div class="section" id="begriffe">
-<h2>Begriffe</h2>
+<h3>Begriffe</h3>
 <dl class="docutils">
 <dt>Genetische Algorithmen</dt>
 <dd>Klasse von Algorithmen,
@@ -388,41 +396,52 @@ welche die Prinzipien der Evolution Anwenden
 um Problemlöser zu Finden</dd>
 <dt>Genetische Programmierung</dt>
 <dd>Klasse von Genetischen Algorithmen,
-welche anstelle von Merkmalsvektoren Programme oder Funktionen
+welche anstelle von Merkmals Vektoren Programme oder Funktionen
 als Elemente einer Population haben</dd>
 </dl>
 <p>Allen Genetischen Algorithmen liegen liegen die Komponenten der Evolution
-zu grunde.</p>
+zu Grunde.</p>
 <ol class="arabic simple">
 <li>Es gibt eine Population</li>
-<li>Es gibt Replikaton/Fortpflanzung mit Mutation</li>
-<li>Es gibt Selektion (in der Natur - Überlebung bis Fortpflanzung/Replikation)</li>
+<li>Es gibt Replikation/Fortpflanzung mit Mutation</li>
+<li>Es gibt Selektion (in der Natur - Überlebend bis Fortpflanzung/Replikation)</li>
 </ol>
 </div>
 <div class="section" id="eigenschaften-des-algorithmus">
-<h2>Eigenschaften des Algorithmus</h2>
+<h3>Eigenschaften des Algorithmus</h3>
 <ul class="simple">
 <li>parallele Suche in einer Population von möglichen Lösungen,
 sodass immer mehrere potentielle Lösungen gefunden werden</li>
-<li>benötigen kaum Problemwissen,
-insbesondere keine Gradienteninformation,
-können also z.B. auch bei diskontinuierlichen Problemen
-angewendet werden</li>
-<li>gehören zur Klasse der stochastischen Suchverfahren
+<li>benötigen kaum Problem wissen,
+insbesondere keine Gradienten Information, können also auch bei
+diskontinuierlichen Problemen angewendet werden</li>
+<li>gehören zur Klasse der stochastischen Such verfahren
 und ermöglichen damit auch die Behandlung von Problemen,
-die mit traditionellen Optimierungsmethoden nicht mehr handhabbar sind.</li>
+die mit traditionellen Optimierung Methoden nicht mehr handhabbar sind.</li>
 <li>Evolutionäre Algorithmen bieten im Allgemeinen keine Garantie,
 das globale Optimum in vernünftiger Zeit zu finden.</li>
-<li>Großer Nachteil der EAs ist der oft sehr große Rechenzeitbedarf</li>
+<li>Großer Nachteil der EAs ist der oft sehr große Rechenzeit bedarf</li>
 </ul>
 </div>
 </div>
 <div class="section" id="ein-einfaches-beispiel">
-<h1>Ein einfaches Beispiel</h1>
-<p>Zu Demonstrationszwecken soll mittels eines Genetischen Programms die
-funktion <cite>f(a, b)=sqrt(a*a + b*b)</cite> angenährt werden.</p>
-<p>dazu stehen die folgenden Funktionsbausteine zur verfuegung</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">gp_add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span> <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span>
+<h2>Ein einfaches Beispiel</h2>
+<p>Zu Demonstration zwecken soll mittels eines Genetischen Programms die
+Funktion <cite>f(a, b)=sqrt(a*a + b*b)</cite> angenährt werden.</p>
+<p>Dazu stehen die folgenden Funktionsbausteine zur Verfügung</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">FlushFile</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Write-only flushing wrapper for file-type objects.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">f</span>
+    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+<span class="c"># Replace stdout with an automatically flushing version</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">FlushFile</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">__stdout__</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">gp_add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span> <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span>
 <span class="k">def</span> <span class="nf">gp_sub</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span> <span class="k">return</span> <span class="n">a</span><span class="o">-</span><span class="n">b</span>
 <span class="k">def</span> <span class="nf">gp_mul</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span> <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="n">b</span>
 <span class="k">def</span> <span class="nf">gp_sqrt</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>   <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
@@ -487,9 +506,9 @@ funktion <cite>f(a, b)=sqrt(a*a + b*b)</cite> angenährt werden.</p>
     <span class="n">main_run</span><span class="p">(</span><span class="n">eval_func</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Als Betrachtungsgrundlage werden 3 Arten
+<p>Als Betrachtungs-grundlage werden 3 Arten
 der Evaluierung gegenüber gestellt.</p>
-<p><strong>code generator basierte evaluierung</strong></p>
+<p><strong>code generator basierte Evaluation</strong></p>
 <blockquote>
 <div><div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">eval_code</span><span class="p">(</span><span class="n">chromosome</span><span class="p">):</span>
     <span class="n">error_accum</span> <span class="o">=</span> <span class="n">Util</span><span class="o">.</span><span class="n">ErrorAccumulator</span><span class="p">()</span>
@@ -509,7 +528,7 @@ der Evaluierung gegenüber gestellt.</p>
 </pre></div>
 </div>
 </div></blockquote>
-<p><strong>visitor basierte evaluierung</strong></p>
+<p><strong>visitor basierte Evaluation</strong></p>
 <blockquote>
 <div><div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">visit_node</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">terminals</span><span class="p">,</span> <span class="n">functions</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="o">.</span><span class="n">childs</span><span class="p">:</span>
@@ -537,7 +556,7 @@ der Evaluierung gegenüber gestellt.</p>
 </pre></div>
 </div>
 </div></blockquote>
-<p><strong>operator list basierte evaluation</strong></p>
+<p><strong>operator list basierte Evaluation</strong></p>
 <blockquote>
 <div><div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">nodeops</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">functions</span><span class="p">):</span>
     <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
@@ -572,8 +591,13 @@ der Evaluierung gegenüber gestellt.</p>
 </pre></div>
 </div>
 </div></blockquote>
-<div class="section" id="resultate-des-geschwindigkeitsvergleiches">
-<h2>Resultate des Geschwindigkeitsvergleiches</h2>
+<div class="section" id="resultate-des-geschwindigkeit-vergleiches">
+<h3>Resultate des Geschwindigkeit Vergleiches</h3>
+<p>Um einen Eindruck über die Geschwindigkeit der Verschiedenen Evaluierung Methoden
+zu gewinnen, wurden sie vor das gleiche Problem gestellt.
+Zusätzlich wurde neben dem normalen Python Interpreter
+auch PyPy in den Vergleich mit einbezogen, um einen Eindruck zu gewinnen,
+welchen Einfluss ein Python Interpreter mit JIT hat.</p>
 <div class="highlight-python"><pre>pypy-bin stack
   real 1m48.747s
   user 1m47.867s
@@ -603,9 +627,9 @@ python code
 </div>
 </div>
 <div class="section" id="demonstration-der-eigenheiten-des-algorithmus">
-<h2>Demonstration der Eigenheiten des Algorithmus</h2>
+<h3>Demonstration der Eigenheiten des Algorithmus</h3>
 <p>Um diverse Eigenheiten zu demonstrieren,
-werden gewinnene Individuen aus Verschiedenen generationen entnommen</p>
+wurden gewinnende Individuen aus Verschiedenen Generationen entnommen</p>
 <ol class="arabic simple">
 <li>Tote Teile des Genoms</li>
 </ol>
@@ -621,15 +645,15 @@ werden gewinnene Individuen aus Verschiedenen generationen entnommen</p>
     <span class="n">mul</span><span class="p">(</span><span class="n">sub</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="n">a</span><span class="p">))))</span>
 </pre></div>
 </div>
-<p>in diesem beispiel ist die sequenz <cite>sub(b, b)</cite> der &quot;fehler&quot;
-es ist ein typischer Auslöschungsfehler</p>
+<p>In diesem Beispiel ist die Sequenz <cite>sub(b, b)</cite> der &quot;Fehler&quot;
+es ist ein typischer Auslöschung Fehler, der das eigentliche Ergebnis nicht ändert</p>
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li>fehlerdaten bei zuwenig generationen</li>
+<li>Fehler Daten bei zuwenig Generationen</li>
 </ol>
 <blockquote>
-<div><p>folgend ist das beste individuum bei einem lauf mit 50 generationen</p>
-<p>es ist unschwer zu erkennen, dass es weit vom optimum ist</p>
+<div><p>Folgend ist das beste Individuum bei einem lauf mit 50 Fenerationen</p>
+<p>es ist unschwer zu erkennen, dass es weit vom Optimum entfernt ist</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">sqrt</span><span class="p">(</span><span class="n">add</span><span class="p">(</span>
   <span class="n">sqrt</span><span class="p">(</span><span class="n">mul</span><span class="p">(</span><span class="n">sub</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="n">mul</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">))),</span>
   <span class="n">add</span><span class="p">(</span>
@@ -639,10 +663,10 @@ es ist ein typischer Auslöschungsfehler</p>
 </div>
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li>fehlerdaten bei zu geringer population</li>
+<li>Fehler Daten bei zu geringer Population</li>
 </ol>
 <blockquote>
-<div><p>folgend ist das beste individuum wenn die populationsgroesse stark reduziert ist</p>
+<div><p>Folgend ist das beste Individuum wenn die Populationsgrösse stark reduziert ist</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">add</span><span class="p">(</span>
   <span class="n">sqrt</span><span class="p">(</span><span class="n">add</span><span class="p">(</span>
     <span class="n">mul</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="n">add</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">b</span><span class="p">)),</span>
@@ -653,23 +677,23 @@ es ist ein typischer Auslöschungsfehler</p>
 </div></blockquote>
 </div>
 </div>
-<div class="section" id="resultat-eines-erfolreichen-durchlaufes">
-<h1>Resultat eines Erfolreichen Durchlaufes</h1>
+<div class="section" id="resultat-eines-erfolgreichen-durchlaufes">
+<h2>Resultat eines Erfolgreichen Durchlaufes</h2>
 <dl class="docutils">
-<dt>500 generationen</dt>
+<dt>500 Generationen</dt>
 <dd><div class="first last highlight-python"><div class="highlight"><pre><span class="n">sqrt</span><span class="p">(</span><span class="n">sub</span><span class="p">(</span>
   <span class="n">sub</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">mul</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">),</span> <span class="n">mul</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">b</span><span class="p">)),</span> <span class="n">a</span><span class="p">),</span> <span class="n">a</span><span class="p">))</span>
 </pre></div>
 </div>
 </dd>
-<dt>1000 generationen</dt>
+<dt>1000 Generationen</dt>
 <dd>sqrt(add(add(mul(b, b), mul(a, a)), mul(sub(b, b), mul(sub(a, a), sub(b, a)))))</dd>
-<dt>2000 generationen 2000 pop</dt>
+<dt>2000 Generationen 2000 Population</dt>
 <dd>sqrt(add(add(mul(b, b), mul(a, a)), mul(add(add(b, a), a), mul(mul(a, a), sub(a, a)))))</dd>
-<dt>40 gen, 2000 items, kosten fuer tiefe</dt>
+<dt>40 gen, 2000 Items, Kosten für Tiefe</dt>
 <dd>sqrt(add(mul(b, b), mul(a, a)))</dd>
 </dl>
-<p>Beispiel schneller erfolgreicher run:w:</p>
+<p>Beispiel schneller erfolgreicher Durchlaufe:</p>
 <div class="highlight-python"><pre>$ PYTHONPATH=../pyevolve/ pypy-bin funfind.py stack \
 &gt;           --generations 2000 \
 &gt;           --population 2000 \
@@ -685,19 +709,209 @@ Gen. 72 (3.60%): Max/Min/Avg Fitness(Raw) [4.99(1178.43)/4.16(0.00)/4.16(4.16)]
 Total time elapsed: 21.301 seconds.
 sqrt(add(mul(b, b), mul(a, a)))</pre>
 </div>
-<ul class="simple">
-<li>titelliste</li>
-<li>basics erklaeren</li>
-<li>perf vergleich python pypy<ul>
-<li>optimierungen erlaeutern/vergleichen</li>
-</ul>
-</li>
-<li>problem des zufalls erlautern</li>
-<li>multicpu
-auf pypy und cpython vergleichen</li>
-<li>network</li>
-<li>transformation von merkmalsvektoren (wie zum geier abbilden):</li>
-</ul>
+</div>
+</div>
+<div class="section" id="der-grosse-kombinatorische-test">
+<h1>Der grosse kombinatorische Test</h1>
+<p>Um das Verhalten des Algorithmus besser zu verstehen,
+wurde er für eine grosse Menge an Konfigurationen jeweils komplett durchgeführt.</p>
+<p>Dabei wurden folgende fixen Achsen verwendet:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">crossover rate:</th><td class="field-body">1.0</td>
+</tr>
+<tr class="field-even field"><th class="field-name">mutation rate:</th><td class="field-body">0.08</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">height shift:</th><td class="field-body">-3</td>
+</tr>
+</tbody>
+</table>
+<p>Die <cite>height shift</cite> ist dabei der Wert um den die Baum höhe
+verändert wird, bevor sie in die Gewichtung eingeht.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">eval_height</span><span class="p">(</span><span class="n">chromosome</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">chromosome</span><span class="o">.</span><span class="n">tree_height</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Der Wert von -3 wurde gewählt, weil die optimale Baum höhe im
+Beispiel ist und versucht wird, das Bewertung Ergebnis zu minimieren.</p>
+<p>Die Dynamischen Achsen sind:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">height-weight:</th><td class="field-body">[-2,-1,-0.1,-0.01,-0.001,0,0.001,0.01,0.1,1,2]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">generations:</th><td class="field-body">[20,50,100,300,500,1000,1500,2000,3000,5000]</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">population:</th><td class="field-body">[20,50,100,300,500,1000,1500,2000,3000,5000]</td>
+</tr>
+</tbody>
+</table>
+<p><cite>height-weight</cite> gibt dabei ein, wie stark die bereits erwähnte Baum höhe
+in die Bewertung mit eingeht.</p>
+<p>Um einen groben Überblick zu erlangen,
+wurden für alle Kombinationen von height-weight,
+Plots über Generationen X Population erstellt,
+und korrekte/inkorrekte Resultate markiert.</p>
+<p>Dabei wurde nur ein optimales Ergebnis als korrekt angesehen
+(i.e. <cite>sqrt(add(mul(a, a), mul(b, b)))</cite>
+oder <cite>sqrt(add(mul(b, b) mul(a, a)))</cite>).</p>
+<p>Alle Plots sind in der zugefügten <a class="reference external" href="./fill_run.html">datei</a> einsehbar.</p>
+<p>Da alle Ergebnisse grosse Ähnlichkeit aufweisen
+(weight_height scheint keinen visuell feststellbaren Einfluss zu haben),
+wurde das Beispiel mit der Gewichtung 0 gewählt.</p>
+<style>
+  .correct {background-color: green;}
+  .incorrect {background-color: red;}
+</style>
+<h2>heights weight 0</h2>
+<table>
+  <tr>
+    <th>*
+  <th>20
+  <th>50
+  <th>100
+  <th>300
+  <th>500
+  <th>1000
+  <th>1500
+  <th>2000
+  <th>3000
+  <th>5000
+  <tr><th>20
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+  <tr><th>50
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+  <tr><th>100
+    <td class=incorrect>&nbsp
+    <td class=correct>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=correct>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=correct>&nbsp
+    <td class=incorrect>&nbsp
+  <tr><th>300
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+  <tr><th>500
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=correct>&nbsp
+  <tr><th>1000
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+  <tr><th>1500
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+  <tr><th>2000
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+  <tr><th>3000
+    <td class=incorrect>&nbsp
+    <td class=correct>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+  <tr><th>5000
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=incorrect>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+    <td class=correct>&nbsp
+</table>
+</div>
+<div class="section" id="fazit">
+<h1>Fazit</h1>
+<p>Anhand des Datensatzes ist recht einleuchtend der Effekt von Zufallstreffern,
+sowie zunehmender Menge von Generationen und Population zu erkennen.</p>
+<p>Die gewonnenen Daten legen nahe,
+dass die Qualität des Ergebnisses in direkter Relation mit
+der Menge an Generationen und Population steht.</p>
+<p>Die Gewichtung der Baum höhe hatte keinen Effekt.</p>
+</div>
+<div class="section" id="selbstkritik">
+<h1>Selbstkritik</h1>
+<p>Bisher konnten weitere interessante Grössen zur Parametrisierung noch
+nicht analysiert werden.
+Besonders interessant sind dabei cross-over rate und Mutationsrate.</p>
+<p>Entgegen der auf den Beispielen für Eigenarten basierenden Erwartung,
+dass die Höhe des Baumes einen Einfluss hat,
+stellte sich heraus, dass sie keinen hat.</p>
+<p>Weiterhin ist nicht klar,
+welchen Einfluss die Komplexität der Funktion auf das Ergebnis hat.</p>
+<p>Der hohe Aufwand an Rechenzeit legt weitere Projekte nahe.</p>
 </div>
 </div>
 </body>
